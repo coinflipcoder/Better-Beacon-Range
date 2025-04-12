@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "de.silencio.better_beacon_range.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "BeaconRangeMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
