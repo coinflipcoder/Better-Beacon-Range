@@ -32,18 +32,19 @@ public class BeaconRangeMixin {
     private static void modifyBeaconRange(World world, BlockPos pos, int beaconLevel, @Nullable RegistryEntry<StatusEffect> primaryEffect, @Nullable RegistryEntry<StatusEffect> secondaryEffect, CallbackInfo ci) {
         double base = config.getBase();
         double perLevel = config.getPerLevel();
+        boolean belowInfinite = config.isBelowInfinite();
         double customRange = beaconLevel * perLevel + base;
 
         ci.cancel();
 
-        applyPlayerEffects(world, pos, beaconLevel, primaryEffect, secondaryEffect, customRange);
+        applyPlayerEffects(world, pos, beaconLevel, primaryEffect, secondaryEffect, customRange, belowInfinite);
     }
 
     @Unique
     private static void applyPlayerEffects(World world, BlockPos pos, int beaconLevel,
                                            @Nullable RegistryEntry<StatusEffect> primaryEffect,
                                            @Nullable RegistryEntry<StatusEffect> secondaryEffect,
-                                           double customRange) {
+                                           double customRange, boolean belowInfinite) {
 
         if (!world.isClient && primaryEffect != null) {
             int i = 0;
@@ -52,7 +53,12 @@ public class BeaconRangeMixin {
             }
 
             int j = (9 + beaconLevel * 2) * 20;
-            Box box = new Box(pos).expand(customRange).stretch(0.0, world.getHeight(), 0.0);
+            Box box;
+            if (belowInfinite) {
+                box = new Box(pos).expand(customRange, world.getHeight(), customRange);
+            } else {
+                box = new Box(pos).expand(customRange).stretch(0.0, world.getHeight(), 0.0);
+            }
             List<PlayerEntity> list = world.getNonSpectatingEntities(PlayerEntity.class, box);
 
             for (PlayerEntity playerEntity : list) {

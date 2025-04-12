@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 public class BetterBeaconRange implements ModInitializer {
 
-    public static final Logger LOGGER = LoggerFactory.getLogger("better_beacon_range");
+    private static final Logger LOGGER = LoggerFactory.getLogger("better_beacon_range");
     private final BeaconConfig config = new BeaconConfig();
 
     @Override
