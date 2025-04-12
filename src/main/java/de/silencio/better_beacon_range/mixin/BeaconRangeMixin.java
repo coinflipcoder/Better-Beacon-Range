@@ -1,5 +1,6 @@
 package de.silencio.better_beacon_range.mixin;
 
+import de.silencio.better_beacon_range.BeaconConfig;
 import net.minecraft.block.entity.BeaconBlockEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -21,10 +22,16 @@ import java.util.Objects;
 @Mixin(BeaconBlockEntity.class)
 public class BeaconRangeMixin {
 
+    private static BeaconConfig config = new BeaconConfig();
+
+    static {
+        config.loadConfig();
+    }
+
     @Inject(method = "applyPlayerEffects", at = @At("HEAD"), cancellable = true)
     private static void modifyBeaconRange(World world, BlockPos pos, int beaconLevel, @Nullable RegistryEntry<StatusEffect> primaryEffect, @Nullable RegistryEntry<StatusEffect> secondaryEffect, CallbackInfo ci) {
-        double base = 50;
-        double perLevel = 25;
+        double base = config.getBase();
+        double perLevel = config.getPerLevel();
         double customRange = beaconLevel * perLevel + base;
 
         ci.cancel();
