@@ -4,11 +4,17 @@
   "version": "${version}",
   "name": "Better Beacon Range",
   "description": "Makes the beacon range configurable.",
-  "authors": [],
-  "contact": {},
-  "license": "unlicense",
-  "icon": "assets/better_beacon_range/icon.png",
-  "environment": "server",
+  "authors": [
+    "Silencio"
+  ],
+  "contact": {
+    "homepage": "https://devlencio.net",
+    "sources": "https://github.com/S1lencio/Better-Beacon-Range",
+    "issues": "https://github.com/S1lencio/Better-Beacon-Range/issues"
+  },
+  "license": "GPL-3.0",
+  "icon": "icon.png",
+  "environment": "*",
   "entrypoints": {
     "main": [ "de.silencio.better_beacon_range.BetterBeaconRange" ]
   },

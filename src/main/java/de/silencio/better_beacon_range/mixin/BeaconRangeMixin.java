@@ -10,6 +10,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,14 +24,21 @@ import java.util.Objects;
 @Mixin(BeaconBlockEntity.class)
 public class BeaconRangeMixin {
 
-    private static BeaconConfig config = new BeaconConfig();
-
-    static {
-        config.loadConfig();
-    }
+    @Unique
+    private static BeaconConfig config;
 
     @Inject(method = "applyPlayerEffects", at = @At("HEAD"), cancellable = true)
     private static void modifyBeaconRange(World world, BlockPos pos, int beaconLevel, @Nullable RegistryEntry<StatusEffect> primaryEffect, @Nullable RegistryEntry<StatusEffect> secondaryEffect, CallbackInfo ci) {
+        // Prevent client-side execution, just in case
+        if (world.isClient) return;
+
+        // only load config when the method is called
+        // makes sure the config is only loaded on a dedicated or integrated server
+        if (config == null) {
+            config = new BeaconConfig();
+            config.loadConfig();
+        }
+
         double base = config.getBase();
         double perLevel = config.getPerLevel();
         boolean belowInfinite = config.isBelowInfinite();
