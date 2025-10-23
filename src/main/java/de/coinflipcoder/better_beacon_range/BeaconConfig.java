@@ -1,4 +1,4 @@
-package de.silencio.better_beacon_range;
+package de.coinflipcoder.better_beacon_range;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

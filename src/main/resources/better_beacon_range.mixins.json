@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "de.silencio.better_beacon_range.mixin",
+  "package": "de.coinflipcoder.better_beacon_range.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "BeaconRangeMixin"

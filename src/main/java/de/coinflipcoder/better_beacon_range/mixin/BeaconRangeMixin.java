@@ -1,6 +1,6 @@
-package de.silencio.better_beacon_range.mixin;
+package de.coinflipcoder.better_beacon_range.mixin;
 
-import de.silencio.better_beacon_range.BeaconConfig;
+import de.coinflipcoder.better_beacon_range.BeaconConfig;
 import net.minecraft.block.entity.BeaconBlockEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -28,7 +28,7 @@ public class BeaconRangeMixin {
     @Inject(method = "applyPlayerEffects", at = @At("HEAD"), cancellable = true)
     private static void modifyBeaconRange(World world, BlockPos pos, int beaconLevel, @Nullable RegistryEntry<StatusEffect> primaryEffect, @Nullable RegistryEntry<StatusEffect> secondaryEffect, CallbackInfo ci) {
         // Prevent client-side execution, just in case
-        if (world.isClient) return;
+        if (world.isClient()) return;
 
         // only load config when the method is called
         // makes sure the config is only loaded on a dedicated or integrated server
@@ -53,7 +53,7 @@ public class BeaconRangeMixin {
                                            @Nullable RegistryEntry<StatusEffect> secondaryEffect,
                                            double customRange, boolean belowInfinite) {
 
-        if (!world.isClient && primaryEffect != null) {
+        if (!world.isClient() && primaryEffect != null) {
             int i = 0;
             if (beaconLevel >= 4 && Objects.equals(primaryEffect, secondaryEffect)) {
                 i = 1;

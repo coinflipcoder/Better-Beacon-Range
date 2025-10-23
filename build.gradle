@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.10-SNAPSHOT'
+    id 'fabric-loom' version '1.11-SNAPSHOT'
     id 'maven-publish'
 }
 
@@ -10,6 +10,12 @@ base {
     archivesName = project.archives_base_name
 }
 
+
+fabricApi {
+    configureDataGeneration {
+        client = true
+    }
+}
 
 repositories {
     // Add repositories to retrieve artifacts from in here.
@@ -65,10 +71,13 @@ java {
 }
 
 jar {
+    inputs.property "archivesName", project.base.archivesName
+
     from("LICENSE") {
-        rename { "${it}_${project.archivesBaseName}" }
+        rename { "${it}_${inputs.properties.archivesName}"}
     }
 }
+
 
 // configure the maven publication
 publishing {

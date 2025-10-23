@@ -5,18 +5,20 @@
   "name": "Better Beacon Range",
   "description": "Makes the beacon range configurable.",
   "authors": [
-    "Silencio"
+    "Coinflipcoder"
   ],
   "contact": {
-    "homepage": "https://devlencio.net",
-    "sources": "https://github.com/S1lencio/Better-Beacon-Range",
-    "issues": "https://github.com/S1lencio/Better-Beacon-Range/issues"
+    "homepage": "https://coinflipcoder.dev",
+    "sources": "https://github.com/coinflipcoder/Better-Beacon-Range",
+    "issues": "https://github.com/coinflipcoder/Better-Beacon-Range/issues"
   },
   "license": "GPL-3.0",
   "icon": "icon.png",
   "environment": "*",
   "entrypoints": {
-    "main": [ "de.silencio.better_beacon_range.BetterBeaconRange" ]
+    "main": [
+      "de.coinflipcoder.better_beacon_range.BetterBeaconRange"
+    ]
   },
   "mixins": [ "better_beacon_range.mixins.json" ],
   "depends": {
